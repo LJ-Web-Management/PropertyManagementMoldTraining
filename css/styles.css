@@ -81,11 +81,9 @@ button{font-family:inherit;}
   display:flex;align-items:center;justify-content:space-between;
   height:76px;
 }
-.logo{display:flex;align-items:baseline;gap:2px;font-weight:800;letter-spacing:.2px;white-space:nowrap;flex-shrink:0;}
-.logo-mark{font-size:1.15rem;color:var(--navy-900);}
-.logo-mark-footer{color:var(--white);}
-.logo-dash{color:var(--orange-500);}
-.logo-sub{font-size:.85rem;color:var(--gray-500);font-weight:600;}
+.logo{display:flex;align-items:center;flex-shrink:0;}
+.logo-img{height:40px;width:auto;display:block;}
+.logo-img-footer{height:36px;}
 
 .main-nav{display:flex;gap:2rem;}
 .main-nav a{font-weight:600;font-size:.95rem;color:var(--navy-800);padding:.5rem 0;position:relative;}
@@ -406,8 +404,7 @@ button{font-family:inherit;}
 
 @media (max-width:480px){
   .header-inner{gap:.5rem;}
-  .logo-mark{font-size:.95rem;}
-  .logo-sub{display:none;}
+  .logo-img{height:32px;}
   .header-actions{gap:.6rem;}
 }
 
