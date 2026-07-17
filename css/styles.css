@@ -409,15 +409,66 @@ a.related-card:hover{
 .faq-question[aria-expanded="true"] .faq-icon{
   background:var(--orange-500);color:#fff;transform:rotate(45deg);
 }
-.faq-item:hover .faq-icon{
+.faq-list .faq-item:hover .faq-icon{
   background:var(--orange-500);color:#fff;
 }
 .faq-answer{
   max-height:0;overflow:hidden;
   transition:max-height .25s ease;
 }
-.faq-item:hover .faq-answer{max-height:400px;}
+.faq-list .faq-item:hover .faq-answer{max-height:400px;}
 .faq-answer p{padding:0 4px 22px;font-size:.94rem;margin:0;}
+
+.faq-view-more{text-align:center;margin-top:32px;}
+
+/* ---------- FAQ Modal ---------- */
+.modal-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(8,20,40,.72);
+  z-index:200;
+  padding:5vh 20px;
+  overflow-y:auto;
+}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+.modal{
+  position:relative;
+  background:var(--white);
+  border-radius:18px;
+  width:100%;max-width:900px;
+  padding:44px;
+  box-shadow:var(--shadow-lg);
+  margin:auto;
+}
+.modal-close{
+  position:absolute;top:18px;right:18px;
+  width:36px;height:36px;
+  border:none;border-radius:50%;
+  background:var(--gray-100);
+  color:var(--navy-800);
+  font-size:1.4rem;line-height:1;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background-color .15s ease, color .15s ease;
+}
+.modal-close:hover{background:var(--orange-500);color:#fff;}
+.modal-header{max-width:640px;margin:0 0 32px;}
+.modal-header h2{font-size:clamp(1.4rem,2.4vw,1.9rem);}
+.modal-sub{font-size:.98rem;}
+.faq-category{
+  font-size:.95rem;text-transform:uppercase;letter-spacing:.6px;
+  color:var(--orange-600);
+  margin:36px 0 4px;
+  padding-bottom:8px;
+  border-bottom:2px solid var(--gray-200);
+}
+.faq-category:first-of-type{margin-top:0;}
+.faq-modal-list .faq-item{border-bottom:1px solid var(--gray-200);}
+.modal-disclaimer{
+  margin-top:32px;padding-top:20px;
+  border-top:1px solid var(--gray-200);
+  font-size:.82rem;font-style:italic;color:var(--gray-500);
+}
 
 /* ---------- Final CTA ---------- */
 .final-cta{
@@ -523,4 +574,7 @@ a.related-card:hover{
   .pricing-card{padding:28px 20px;}
   .footer-grid{grid-template-columns:1fr;gap:36px;}
   .curriculum-list li{gap:16px;}
+  .modal-overlay{padding:0;}
+  .modal{border-radius:0;min-height:100vh;padding:28px 20px;}
+  .modal-close{top:14px;right:14px;}
 }

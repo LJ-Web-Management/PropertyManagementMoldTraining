@@ -16,13 +16,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // FAQ accordion
+  // FAQ accordion (each faq-list/faq-modal-list container manages its own open item)
   document.querySelectorAll('.faq-question').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var expanded = btn.getAttribute('aria-expanded') === 'true';
       var answer = btn.nextElementSibling;
+      var container = btn.closest('.faq-list, .faq-modal-list') || document;
 
-      document.querySelectorAll('.faq-question').forEach(function (other) {
+      container.querySelectorAll('.faq-question').forEach(function (other) {
         if (other !== btn) {
           other.setAttribute('aria-expanded', 'false');
           other.nextElementSibling.style.maxHeight = null;
@@ -33,6 +34,31 @@ document.addEventListener('DOMContentLoaded', function () {
       answer.style.maxHeight = expanded ? null : answer.scrollHeight + 'px';
     });
   });
+
+  // FAQ "View More" modal
+  var faqModalOverlay = document.getElementById('faqModalOverlay');
+  var faqViewMoreBtn = document.getElementById('faqViewMoreBtn');
+  var faqModalClose = document.getElementById('faqModalClose');
+
+  function openFaqModal() {
+    faqModalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFaqModal() {
+    faqModalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (faqModalOverlay && faqViewMoreBtn && faqModalClose) {
+    faqViewMoreBtn.addEventListener('click', openFaqModal);
+    faqModalClose.addEventListener('click', closeFaqModal);
+    faqModalOverlay.addEventListener('click', function (e) {
+      if (e.target === faqModalOverlay) closeFaqModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && faqModalOverlay.classList.contains('open')) closeFaqModal();
+    });
+  }
 
   // Enroll form (seat count only; Stripe checkout wires in later)
   var enrollForm = document.getElementById('enrollForm');
