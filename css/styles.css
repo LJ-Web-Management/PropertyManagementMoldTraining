@@ -421,40 +421,7 @@ a.related-card:hover{
 
 .faq-view-more{text-align:center;margin-top:32px;}
 
-/* ---------- FAQ Modal ---------- */
-.modal-overlay{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(8,20,40,.72);
-  z-index:200;
-  padding:5vh 20px;
-  overflow-y:auto;
-}
-.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
-.modal{
-  position:relative;
-  background:var(--white);
-  border-radius:18px;
-  width:100%;max-width:900px;
-  padding:44px;
-  box-shadow:var(--shadow-lg);
-  margin:auto;
-}
-.modal-close{
-  position:absolute;top:18px;right:18px;
-  width:36px;height:36px;
-  border:none;border-radius:50%;
-  background:var(--gray-100);
-  color:var(--navy-800);
-  font-size:1.4rem;line-height:1;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:background-color .15s ease, color .15s ease;
-}
-.modal-close:hover{background:var(--orange-500);color:#fff;}
-.modal-header{max-width:640px;margin:0 0 32px;}
-.modal-header h2{font-size:clamp(1.4rem,2.4vw,1.9rem);}
-.modal-sub{font-size:.98rem;}
+/* ---------- FAQ category list (reused on the FAQ resource page) ---------- */
 .faq-category{
   font-size:.95rem;text-transform:uppercase;letter-spacing:.6px;
   color:var(--orange-600);
@@ -463,12 +430,64 @@ a.related-card:hover{
   border-bottom:2px solid var(--gray-200);
 }
 .faq-category:first-of-type{margin-top:0;}
-.faq-modal-list .faq-item{border-bottom:1px solid var(--gray-200);}
-.modal-disclaimer{
+.faq-page-list .faq-item{border-bottom:1px solid var(--gray-200);}
+.faq-page-disclaimer{
   margin-top:32px;padding-top:20px;
   border-top:1px solid var(--gray-200);
   font-size:.82rem;font-style:italic;color:var(--gray-500);
 }
+
+/* ---------- FAQ resource page ---------- */
+.hero-solo .hero-inner{
+  display:block;
+  max-width:760px;margin:0 auto;
+  text-align:center;
+}
+.hero-solo .hero-lead{margin:0 auto;}
+.hero-solo .hero-cta-row{justify-content:center;}
+.hero-solo .hero-meta{justify-content:center;}
+
+.faq-jumpnav{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  justify-content:center;
+  padding:24px 0;
+}
+.faq-jumpnav a{
+  font-size:.82rem;font-weight:700;
+  color:var(--navy-800);
+  background:var(--gray-100);
+  padding:.5rem 1rem;
+  border-radius:999px;
+  transition:background-color .15s ease, color .15s ease;
+}
+.faq-jumpnav a:hover{background:var(--orange-500);color:#fff;}
+
+.faq-cta-box{
+  background:var(--gray-50);
+  border:1px solid var(--gray-200);
+  border-left:4px solid var(--orange-500);
+  border-radius:10px;
+  padding:22px 26px;
+  margin:32px 0;
+}
+.faq-cta-box p{margin:0;font-size:.95rem;color:var(--gray-700);}
+.faq-cta-box strong{color:var(--navy-900);}
+.faq-cta-box a{color:var(--orange-600);font-weight:700;text-decoration:underline;}
+
+.state-law-intro{max-width:720px;margin:0 auto 40px;text-align:center;}
+.state-law-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.state-law-card{
+  background:var(--white);
+  border:1px solid var(--gray-200);
+  border-radius:10px;
+  padding:18px 20px;
+}
+.state-law-card h4{font-size:.95rem;margin-bottom:.35rem;color:var(--navy-900);}
+.state-law-card p{font-size:.85rem;margin:0;color:var(--gray-700);}
 
 /* ---------- Final CTA ---------- */
 .final-cta{
@@ -574,7 +593,5 @@ a.related-card:hover{
   .pricing-card{padding:28px 20px;}
   .footer-grid{grid-template-columns:1fr;gap:36px;}
   .curriculum-list li{gap:16px;}
-  .modal-overlay{padding:0;}
-  .modal{border-radius:0;min-height:100vh;padding:28px 20px;}
-  .modal-close{top:14px;right:14px;}
+  .state-law-grid{grid-template-columns:1fr;}
 }
