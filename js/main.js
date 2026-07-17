@@ -34,9 +34,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Enroll form (placeholder — no backend / payment wired up yet)
+  // Buyer type toggle (Individual / Business) — display only, pricing doesn't change
+  var buyerTypeBtns = document.querySelectorAll('.buyer-type-btn');
+  var bulkPricing = document.getElementById('bulkPricing');
+  if (buyerTypeBtns.length && bulkPricing) {
+    buyerTypeBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buyerTypeBtns.forEach(function (other) {
+          other.classList.remove('active');
+          other.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        bulkPricing.hidden = btn.dataset.buyerType !== 'business';
+      });
+    });
+  }
+
+  // Enroll form (seat count only — Stripe checkout wires in later)
   var enrollForm = document.getElementById('enrollForm');
   var formSuccess = document.getElementById('formSuccess');
+  var seatsInput = document.getElementById('seats');
+  var formTotal = document.getElementById('formTotal');
+
+  if (enrollForm && seatsInput && formTotal) {
+    var pricePerSeat = parseFloat(enrollForm.dataset.pricePerSeat);
+    var updateTotal = function () {
+      var seats = Math.max(1, parseInt(seatsInput.value, 10) || 1);
+      formTotal.textContent = 'Total: $' + (seats * pricePerSeat).toFixed(2);
+    };
+    seatsInput.addEventListener('input', updateTotal);
+    updateTotal();
+  }
+
   if (enrollForm && formSuccess) {
     enrollForm.addEventListener('submit', function (e) {
       e.preventDefault();
