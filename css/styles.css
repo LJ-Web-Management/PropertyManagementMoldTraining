@@ -190,6 +190,13 @@ button{font-family:inherit;}
   font-size:.8rem;
   font-weight:700;
   color:var(--navy-800);
+  transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease, color .2s ease;
+}
+.badge:hover{
+  box-shadow:var(--shadow-md);
+  transform:translateY(-2px);
+  border-color:var(--orange-500);
+  color:var(--orange-600);
 }
 
 /* ---------- Sections ---------- */
