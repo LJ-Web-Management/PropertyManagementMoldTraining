@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Buyer type toggle (Individual / Business) — display only, pricing doesn't change
+  // Buyer type toggle (Individual / Business): display only, pricing doesn't change
   var buyerTypeBtns = document.querySelectorAll('.buyer-type-btn');
   var bulkPricing = document.getElementById('bulkPricing');
   if (buyerTypeBtns.length && bulkPricing) {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Enroll form (seat count only — Stripe checkout wires in later)
+  // Enroll form (seat count only; Stripe checkout wires in later)
   var enrollForm = document.getElementById('enrollForm');
   var formSuccess = document.getElementById('formSuccess');
   var seatsInput = document.getElementById('seats');
