@@ -108,18 +108,16 @@ button{font-family:inherit;}
 
 /* ---------- Hero ---------- */
 .hero{
-  background:linear-gradient(160deg,var(--navy-900) 0%,var(--navy-800) 55%,var(--navy-700) 100%);
+  background:
+    linear-gradient(160deg,rgba(11,37,69,.94) 0%,rgba(18,49,100,.92) 55%,rgba(23,61,122,.9) 100%),
+    url('../images/hero-mold-texture.jpg');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
   color:var(--white);
   padding:72px 0 96px;
   position:relative;
   overflow:hidden;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  right:-120px;top:-120px;
-  width:420px;height:420px;
-  background:radial-gradient(circle,rgba(245,130,12,.25) 0%,rgba(245,130,12,0) 70%);
 }
 .hero-inner{
   display:grid;
@@ -127,6 +125,20 @@ button{font-family:inherit;}
   gap:56px;
   align-items:center;
   position:relative;
+}
+.hero-copy{
+  background:rgba(8,24,47,.55);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:32px;
+  transition:box-shadow .2s ease, transform .2s ease, background-color .2s ease;
+}
+.hero-copy:hover{
+  background:rgba(8,24,47,.68);
+  box-shadow:var(--shadow-lg);
+  transform:translateY(-3px);
 }
 .eyebrow{
   text-transform:uppercase;
