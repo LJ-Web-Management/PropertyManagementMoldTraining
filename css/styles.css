@@ -164,7 +164,7 @@ button{font-family:inherit;}
   box-shadow:var(--shadow-sm);
 }
 .hero-card h3{font-size:1.1rem;margin-bottom:1.1rem;}
-.hero-card-list{margin-bottom:1.5rem;}
+.hero-card-list{margin-bottom:0;}
 .hero-card-list li{
   display:flex;justify-content:space-between;align-items:center;
   padding:.65rem 0;border-bottom:1px solid var(--gray-100);
