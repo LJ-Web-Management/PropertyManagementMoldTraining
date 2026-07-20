@@ -64,28 +64,46 @@ document.addEventListener('DOMContentLoaded', function () {
   var courseSelect = document.getElementById('courseSelect');
   var courseName = document.getElementById('courseName');
   var courseHours = document.getElementById('courseHours');
+  var bulkPricingToggle = document.getElementById('bulkPricingToggle');
+  var bulkPricingPanel = document.getElementById('bulkPricingPanel');
+  var bulkPricingBody = document.getElementById('bulkPricingBody');
 
   // Bulk seat discount tiers, as a percentage off the selected course's base price
   var bulkTiers = [
-    { min: 101, discount: 0.05 },
-    { min: 51, discount: 0.04 },
-    { min: 21, discount: 0.03 },
-    { min: 11, discount: 0.02 },
-    { min: 2, discount: 0.01 }
+    { label: '1', min: 1, discount: 0 },
+    { label: '2 – 10', min: 2, discount: 0.01 },
+    { label: '11 – 20', min: 11, discount: 0.02 },
+    { label: '21 – 50', min: 21, discount: 0.03 },
+    { label: '51 – 100', min: 51, discount: 0.05 },
+    { label: '101 – 250', min: 101, discount: 0.07 },
+    { label: '251 – 500', min: 251, discount: 0.08 },
+    { label: '501 – 1,000', min: 501, discount: 0.10 }
   ];
 
   if (enrollForm && seatsInput && formTotal) {
     var basePrice = parseFloat(enrollForm.dataset.pricePerSeat);
 
-    var discountFor = function (seats) {
+    var tierFor = function (seats) {
+      var match = bulkTiers[0];
       for (var i = 0; i < bulkTiers.length; i++) {
-        if (seats >= bulkTiers[i].min) return bulkTiers[i].discount;
+        if (seats >= bulkTiers[i].min) match = bulkTiers[i];
       }
-      return 0;
+      return match;
+    };
+    var priceForDiscount = function (discount) {
+      return Math.round(basePrice * (1 - discount) * 100) / 100;
+    };
+    var renderBulkTable = function (activeTier) {
+      if (!bulkPricingBody) return;
+      bulkPricingBody.innerHTML = bulkTiers.map(function (tier) {
+        var rowClass = tier === activeTier ? ' class="active"' : '';
+        return '<tr' + rowClass + '><td>' + tier.label + '</td><td>$' + priceForDiscount(tier.discount).toFixed(2) + '</td></tr>';
+      }).join('');
     };
     var updatePricing = function () {
       var seats = Math.max(1, parseInt(seatsInput.value, 10) || 1);
-      var pricePerSeat = Math.round(basePrice * (1 - discountFor(seats)) * 100) / 100;
+      var tier = tierFor(seats);
+      var pricePerSeat = priceForDiscount(tier.discount);
       var discounted = pricePerSeat < basePrice;
 
       if (priceOriginal && priceAmount) {
@@ -95,8 +113,18 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       var totalFormatted = (seats * pricePerSeat).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       formTotal.textContent = 'Total: $' + totalFormatted;
+
+      renderBulkTable(tier);
     };
     seatsInput.addEventListener('input', updatePricing);
+
+    if (bulkPricingToggle && bulkPricingPanel) {
+      bulkPricingToggle.addEventListener('click', function () {
+        var expanded = bulkPricingToggle.getAttribute('aria-expanded') === 'true';
+        bulkPricingToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        bulkPricingPanel.hidden = expanded;
+      });
+    }
 
     if (courseSelect && courseName && courseHours) {
       var applyCourse = function () {

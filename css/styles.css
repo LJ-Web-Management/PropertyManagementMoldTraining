@@ -375,6 +375,52 @@ a.related-card:hover{
 }
 .form-row input:focus{outline:none;border-color:var(--orange-500);}
 .form-note{font-size:.78rem;color:var(--gray-500);text-align:center;margin:.5rem 0 0;}
+
+.bulk-pricing{
+  border:1.5px solid var(--gray-200);
+  border-radius:8px;
+  overflow:hidden;
+}
+.bulk-pricing-toggle{
+  width:100%;
+  display:flex;align-items:center;gap:.5rem;
+  padding:.7rem .9rem;
+  background:var(--white);
+  border:none;
+  cursor:pointer;
+  font-family:inherit;font-size:.9rem;font-weight:700;
+  color:var(--navy-800);
+  text-align:left;
+}
+.bulk-pricing-toggle svg{flex-shrink:0;}
+.bulk-pricing-toggle span{flex:1;}
+.bulk-pricing-chevron{transition:transform .2s ease;}
+.bulk-pricing-toggle[aria-expanded="true"] .bulk-pricing-chevron{transform:rotate(180deg);}
+.bulk-pricing-toggle:hover{color:var(--orange-500);}
+.bulk-pricing-panel{
+  border-top:1px solid var(--gray-200);
+  padding:.5rem .9rem;
+}
+.bulk-pricing-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+.bulk-pricing-table th{
+  text-align:left;
+  padding:.4rem .3rem;
+  font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--gray-500);
+  border-bottom:1px solid var(--gray-200);
+}
+.bulk-pricing-table th:last-child,
+.bulk-pricing-table td:last-child{text-align:right;}
+.bulk-pricing-table td{
+  padding:.45rem .3rem;
+  color:var(--gray-700);
+  border-bottom:1px solid var(--gray-100);
+}
+.bulk-pricing-table tr:last-child td{border-bottom:none;}
+.bulk-pricing-table td:last-child{font-weight:700;color:var(--navy-900);}
+.bulk-pricing-table tr.active{background:rgba(245,130,12,.08);}
+.bulk-pricing-table tr.active td{color:var(--navy-900);font-weight:800;}
+.bulk-pricing-table tr.active td:last-child{color:var(--orange-500);}
 .format-note{
   font-size:.82rem;color:var(--gray-500);
   text-align:center;
