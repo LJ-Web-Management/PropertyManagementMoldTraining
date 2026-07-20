@@ -61,27 +61,31 @@ document.addEventListener('DOMContentLoaded', function () {
   var formTotal = document.getElementById('formTotal');
   var priceOriginal = document.getElementById('priceOriginal');
   var priceAmount = document.getElementById('priceAmount');
+  var courseSelect = document.getElementById('courseSelect');
+  var courseName = document.getElementById('courseName');
+  var courseHours = document.getElementById('courseHours');
 
-  // Bulk seat pricing applies automatically, individual or business
+  // Bulk seat discount tiers, as a percentage off the selected course's base price
   var bulkTiers = [
-    { min: 101, price: 218.49 },
-    { min: 51, price: 220.79 },
-    { min: 21, price: 223.09 },
-    { min: 11, price: 225.39 },
-    { min: 2, price: 227.69 }
+    { min: 101, discount: 0.05 },
+    { min: 51, discount: 0.04 },
+    { min: 21, discount: 0.03 },
+    { min: 11, discount: 0.02 },
+    { min: 2, discount: 0.01 }
   ];
 
   if (enrollForm && seatsInput && formTotal) {
     var basePrice = parseFloat(enrollForm.dataset.pricePerSeat);
-    var pricePerSeatFor = function (seats) {
+
+    var discountFor = function (seats) {
       for (var i = 0; i < bulkTiers.length; i++) {
-        if (seats >= bulkTiers[i].min) return bulkTiers[i].price;
+        if (seats >= bulkTiers[i].min) return bulkTiers[i].discount;
       }
-      return basePrice;
+      return 0;
     };
     var updatePricing = function () {
       var seats = Math.max(1, parseInt(seatsInput.value, 10) || 1);
-      var pricePerSeat = pricePerSeatFor(seats);
+      var pricePerSeat = Math.round(basePrice * (1 - discountFor(seats)) * 100) / 100;
       var discounted = pricePerSeat < basePrice;
 
       if (priceOriginal && priceAmount) {
@@ -93,8 +97,30 @@ document.addEventListener('DOMContentLoaded', function () {
       formTotal.textContent = 'Total: $' + totalFormatted;
     };
     seatsInput.addEventListener('input', updatePricing);
+
+    if (courseSelect && courseName && courseHours) {
+      var applyCourse = function () {
+        var opt = courseSelect.options[courseSelect.selectedIndex];
+        basePrice = parseFloat(opt.dataset.price);
+        enrollForm.dataset.pricePerSeat = basePrice;
+        courseName.textContent = opt.dataset.name;
+        courseHours.textContent = opt.dataset.hours + ' of self-paced online training';
+        updatePricing();
+      };
+      courseSelect.addEventListener('change', applyCourse);
+    }
+
     updatePricing();
   }
+
+  // Related training cards select their course and jump to the enroll form
+  document.querySelectorAll('.related-card[data-course]').forEach(function (card) {
+    card.addEventListener('click', function () {
+      if (!courseSelect) return;
+      courseSelect.value = card.dataset.course;
+      courseSelect.dispatchEvent(new Event('change'));
+    });
+  });
 
   if (enrollForm && formSuccess) {
     enrollForm.addEventListener('submit', function (e) {
