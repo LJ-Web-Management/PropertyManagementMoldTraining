@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var formTotal = document.getElementById('formTotal');
   var priceOriginal = document.getElementById('priceOriginal');
   var priceAmount = document.getElementById('priceAmount');
-  var courseSelect = document.getElementById('courseSelect');
+  var enrollCourseTabs = document.getElementById('enrollCourseTabs');
   var courseName = document.getElementById('courseName');
   var courseHours = document.getElementById('courseHours');
   var bulkPricingToggle = document.getElementById('bulkPricingToggle');
@@ -144,16 +144,21 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    if (courseSelect && courseName && courseHours) {
-      var applyCourse = function () {
-        var opt = courseSelect.options[courseSelect.selectedIndex];
-        basePrice = parseFloat(opt.dataset.price);
+    if (enrollCourseTabs && courseName && courseHours) {
+      var applyCourse = function (tab) {
+        enrollCourseTabs.querySelectorAll('.course-tab').forEach(function (other) {
+          other.classList.toggle('active', other === tab);
+          other.setAttribute('aria-selected', other === tab ? 'true' : 'false');
+        });
+        basePrice = parseFloat(tab.dataset.price);
         enrollForm.dataset.pricePerSeat = basePrice;
-        courseName.textContent = opt.dataset.name;
-        courseHours.textContent = opt.dataset.hours + ' of self-paced online training';
+        courseName.textContent = tab.dataset.name;
+        courseHours.textContent = tab.dataset.hours + ' of self-paced online training';
         updatePricing();
       };
-      courseSelect.addEventListener('change', applyCourse);
+      enrollCourseTabs.querySelectorAll('.course-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () { applyCourse(tab); });
+      });
     }
 
     updatePricing();
@@ -162,9 +167,10 @@ document.addEventListener('DOMContentLoaded', function () {
   // Any element with data-select-course or data-course selects that course and jumps to the enroll form
   document.querySelectorAll('[data-select-course], [data-course]').forEach(function (el) {
     el.addEventListener('click', function () {
-      if (!courseSelect) return;
-      courseSelect.value = el.dataset.selectCourse || el.dataset.course;
-      courseSelect.dispatchEvent(new Event('change'));
+      if (!enrollCourseTabs) return;
+      var value = el.dataset.selectCourse || el.dataset.course;
+      var tab = enrollCourseTabs.querySelector('.course-tab[data-value="' + value + '"]');
+      if (tab) tab.click();
     });
   });
 

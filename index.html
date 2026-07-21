@@ -20,7 +20,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=6">
+<link rel="stylesheet" href="css/styles.css?v=7">
 
 <script type="application/ld+json">
 {
@@ -619,12 +619,12 @@
 
       <div class="pricing-card">
         <div class="form-row course-select-row">
-          <label for="courseSelect">Select a Course</label>
-          <select id="courseSelect">
-            <option value="awareness" data-name="Mold Prevention &amp; Remediation Awareness" data-hours="2 hours" data-price="59.99">Mold Prevention &amp; Remediation Awareness (2 hours, $59.99)</option>
-            <option value="pm-team" data-name="Mold Awareness, Prevention &amp; Remediation for Property Management" data-hours="4 hours" data-price="229.99" selected>Mold Awareness, Prevention &amp; Remediation for Property Management (4 hours, $229.99)</option>
-            <option value="inspector" data-name="Mold Inspector Certification" data-hours="6 hours" data-price="329.99">Mold Inspector Certification (6 hours, $329.99)</option>
-          </select>
+          <span class="course-select-label" id="enrollCourseLabel">Select a Course</span>
+          <div class="course-tabs" id="enrollCourseTabs" role="tablist" aria-labelledby="enrollCourseLabel">
+            <button type="button" class="course-tab" data-value="awareness" data-name="Mold Prevention &amp; Remediation Awareness" data-hours="2 hours" data-price="59.99" role="tab" aria-selected="false">Mold Prevention &amp; Remediation Awareness</button>
+            <button type="button" class="course-tab active" data-value="pm-team" data-name="Mold Awareness, Prevention &amp; Remediation for Property Management" data-hours="4 hours" data-price="229.99" role="tab" aria-selected="true">Property Management Teams</button>
+            <button type="button" class="course-tab" data-value="inspector" data-name="Mold Inspector Certification" data-hours="6 hours" data-price="329.99" role="tab" aria-selected="false">Mold Inspector Certification</button>
+          </div>
         </div>
 
         <div class="pricing-card-top">
@@ -831,7 +831,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=5"></script>
+<script src="js/main.js?v=6"></script>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
