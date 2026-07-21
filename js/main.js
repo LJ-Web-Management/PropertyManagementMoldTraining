@@ -35,6 +35,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Course tabs (Curriculum & Who It's For sections switch content per course)
+  document.querySelectorAll('.course-tabs').forEach(function (tabs) {
+    var panels = tabs.parentElement.querySelectorAll('.course-panel');
+    tabs.querySelectorAll('.course-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.querySelectorAll('.course-tab').forEach(function (other) {
+          other.classList.remove('active');
+          other.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        panels.forEach(function (panel) {
+          panel.classList.toggle('active', panel.dataset.panel === tab.dataset.panel);
+        });
+      });
+    });
+  });
+
   // State-by-state mold law search (FAQ page)
   var stateSearchInput = document.getElementById('stateSearchInput');
   var stateLawGrid = document.getElementById('stateLawGrid');
@@ -141,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
     updatePricing();
   }
 
-  // Related training cards select their course and jump to the enroll form
-  document.querySelectorAll('.related-card[data-course]').forEach(function (card) {
-    card.addEventListener('click', function () {
+  // Any element with data-select-course or data-course selects that course and jumps to the enroll form
+  document.querySelectorAll('[data-select-course], [data-course]').forEach(function (el) {
+    el.addEventListener('click', function () {
       if (!courseSelect) return;
-      courseSelect.value = card.dataset.course;
+      courseSelect.value = el.dataset.selectCourse || el.dataset.course;
       courseSelect.dispatchEvent(new Event('change'));
     });
   });
